@@ -5,7 +5,7 @@ from app.datasources.base import BaseDataSource
 
 class GitHubProfile(BaseDataSource):
 
-    _client = Github("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")
+    _client = Github("<ACCESS_CODE>")
 
     def get_profile_summary(self):
         # Total number of public repos (original repos vs forked repos)
