@@ -1,0 +1,21 @@
+version: "3.8"
+services:
+    test-divvydose-profile-service:
+        build:
+            context: .
+            dockerfile: app/Dockerfile
+        expose:
+            - "5000"
+        ports:
+            - "5000:5000"
+        volumes:
+            - ${PWD}/app:/usr/app
+        environment:
+            - PYTHONUNBUFFERED=0
+            - PYTHONPATH=/usr/
+            # About VCR modes:
+            # https://vcrpy.readthedocs.io/en/latest/usage.html#record-modes
+            - VCR_MODE=once
+        command: ["pytest", "--cov"
+                  # "-k", "<name_of_a_test_to_run>",
+                  ]

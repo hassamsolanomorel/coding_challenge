@@ -1,6 +1,6 @@
 # Coding Challenge App
 
-A skeleton flask app to use for a coding challenge.
+Completed By Hassam Solano-Morel
 
 ## Install:
 
@@ -11,7 +11,7 @@ source activate user-profiles
 ```
 
 Or just pip install from the requirements file
-``` 
+```
 pip install -r requirements.txt
 ```
 
@@ -21,7 +21,7 @@ pip install -r requirements.txt
 
 ```
 # start up local server
-python -m run 
+python -m run
 ```
 
 ### Making Requests
