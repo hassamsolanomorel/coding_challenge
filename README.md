@@ -62,3 +62,4 @@ curl -i "http://127.0.0.1:5000/health-check"
 ## What'd I'd like to improve on...
 1. Hitting the `/profile/<org_name>` endpoint  with a user that does not exist at a datasource can cause the whole request to fail. This doesn't sound right.
 2. Upgrade to Python3.7+. This would enable AsyncIO to more easily play along with Flask. When using Python3.6, Flask views do not support being defined using `async` and thus can't use the `await` keywords. Using coroutines to run external calls (especially to the Github API) concurrently would significantly improve the performance of `/profile/<org_name>`.
+3. Implement proper secret keeping. It would be nice to not depend on the client to pass in their own access_token. Properly implemented secret keeping using something like Hashi Corp's Vault would be a more appropriate approach for preparing this service for production.
