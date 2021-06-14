@@ -7,11 +7,13 @@ Completed By Hassam Solano-Morel
 ### Using virtualenv
 From the project root run:
 ```
-# Create virtual environment. Path to python3.6 is only required if your system's python version is less than 3.6. Otherwise the flag can be skipped.
+# Create virtual environment.
+# Path to python3.6 is only required if your system's python version is
+#  less than 3.6. Otherwise the flag can be skipped.
 virtualenv -p=<PATH/TO/PYTHON3.6> .env
 
 # Activate the environment
-source activate .env/bin/activate
+source .env/bin/activate
 
 # Install dependencies
 pip install -r requirements.txt
