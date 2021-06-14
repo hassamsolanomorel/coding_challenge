@@ -2,53 +2,54 @@
 
 Completed By Hassam Solano-Morel
 
-## Install:
+## Get Things Running!
 
-### Using a virtual env
-You can use a virtual environment (venv):
+### Using virtualenv
+From the project root run:
 ```
-source activate bin/activate
+# Create virtual environment. Path to python3.6 is only required if your system's python version is less than 3.6. Otherwise the flag can be skipped.
+virtualenv -p=<PATH/TO/PYTHON3.6> .env
+
+# Activate the environment
+source activate .env/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the service
+python -m run
+
+# Run Tests
+pytest --cov
 ```
 
 ### On Host machine with Python 3.6+ (no virtual environment)
-Just pip install from the requirements file
+From the project root run:
 ```
+# Install dependencies
 pip install -r requirements.txt
-```
 
-### Using Docker Compose
-```
-docker-compose build
-```
-
-## Running the code
-
-### Using Docker Compose
-```
-# start up docker container
-docker-compose up
-```
-
-### Spin up the service on Host machine
-If you're using a virtual environment, be sure you've completed the appropriate install instructions
-```
-# start up local server
+# Run the service
 python -m run
-```
 
-
-## Running Tests
-To make running tests more efficient VCRpy has been included as part of the testing suite, along with HTTP recordings for appropriate tests. Check out the link in `app/tests/contracttests/base.py` if you're curious on how VCRpy works (it is a pretty sweet library).
-
-### On Host machine
-```
+# Run Tests
 pytest --cov
 ```
 
 ### Using Docker Compose
+From the project root run:
 ```
+# Install dependencies & Run the service
+docker-compose up
+
+# Run Tests
 docker-compose -f docker-compose-tests.yml up
 ```
+
+## Note on Running Tests
+To make running tests more efficient VCRpy has been included as part of the testing suite, along with HTTP recordings for appropriate tests. Check out the link in `app/tests/contracttests/base.py` if you're curious on how VCRpy works (it is a pretty sweet library).
+
+If you'd like to re-record tests, you'll need to replace the access_token specified in `app/tests/contracttests/base.py` as noted in the included comments.
 
 ## Making Requests
 Regardless of which method you chose for running the service the following `host:port` combination should work for making calls:
