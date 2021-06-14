@@ -9,10 +9,11 @@ services:
         ports:
             - "5000:5000"
         volumes:
-            - ${PWD}/app:/usr/app
+            - ${PWD}/app:/usr/src/app
         environment:
             - PYTHONUNBUFFERED=0
-            - PYTHONPATH=/usr/
+            - PYTHONPATH=/usr/src
+            - FLASK_ADDRESS=0.0.0.0
             # About VCR modes:
             # https://vcrpy.readthedocs.io/en/latest/usage.html#record-modes
             - VCR_MODE=once
