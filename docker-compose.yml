@@ -1,0 +1,14 @@
+version: "3.8"
+services:
+    divvydose-profile-service:
+        build:
+            context: .
+            dockerfile: app/Dockerfile
+        ports:
+            - "5000:5000"
+        volumes:
+            - ${PWD}/app:/usr/app
+        environment:
+            - PYTHONUNBUFFERED=0
+            - PYTHONPATH=/usr/app
+        command: [python, /usr/src/run.py]

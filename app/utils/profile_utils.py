@@ -52,6 +52,7 @@ def _combine_dicts(dicts: [dict]):
     unified_dict = defaultdict(lambda: _DEFAULT_DICT_VALUE)
     for d in dicts:
         for k, v in d.items():
-            unified_dict[k] += v
+            if d[k]:
+                unified_dict[k] += v
 
     return dict(unified_dict)
