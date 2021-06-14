@@ -7,8 +7,8 @@ services:
         ports:
             - "5000:5000"
         volumes:
-            - ${PWD}/app:/usr/app
+            - ${PWD}/app:/usr/src/app
         environment:
             - PYTHONUNBUFFERED=0
-            - PYTHONPATH=/usr/app
+            - PYTHONPATH=/usr/src/app
         command: [python, /usr/src/run.py]

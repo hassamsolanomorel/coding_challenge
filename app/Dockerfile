@@ -21,3 +21,4 @@ RUN apt-get purge -y gcc gcc-4.9 cpp python-dev \
 WORKDIR /usr/src
 COPY app/ /usr/src/app
 COPY ../run.py /usr/src/run.py
+COPY ../.coveragerc /usr/src/.coveragerc
