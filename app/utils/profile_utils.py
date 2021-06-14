@@ -12,7 +12,7 @@ from collections import defaultdict
 
 # Project Imports
 
-_DEFAULT_DICT_VALUE = 0
+_DEFAULT_VALUE = 0
 
 
 def merge_profiles(profiles: [dict], keys: [str]):
@@ -21,7 +21,7 @@ def merge_profiles(profiles: [dict], keys: [str]):
     # the criteria given in the coding assignment instructions. A more generic
     # solution would likely be more complex and not needed at this time.
 
-    unified_profile = defaultdict(lambda: _DEFAULT_DICT_VALUE)
+    unified_profile = defaultdict(lambda: _DEFAULT_VALUE)
 
     for profile in profiles:
         for key in keys:
@@ -44,12 +44,17 @@ def merge_profiles(profiles: [dict], keys: [str]):
             else:  # Value is an int (ASSUMPTION)
                 unified_profile[key] += profile[key]
 
-    return unified_profile
+    # Now that we have merged everything, we need to ensure all expected keys
+    # are present in the return value
+    for key in keys:
+        if not unified_profile.get(key):
+            unified_profile[key] = 0
+    return dict(unified_profile)
 
 
 def _combine_dicts(dicts: [dict]):
     # This logic ASSUMES dict values are ints
-    unified_dict = defaultdict(lambda: _DEFAULT_DICT_VALUE)
+    unified_dict = defaultdict(lambda: _DEFAULT_VALUE)
     for d in dicts:
         for k, v in d.items():
             if d[k]:

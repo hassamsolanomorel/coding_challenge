@@ -35,16 +35,12 @@ Author's Note:
 import json
 # 3rd Party Imports
 
-from flask import Flask
 from flask import Response
 from flask import request
 
 # Project Imports
 import app.datasources as d_sources
 from app.utils.profile_utils import merge_profiles
-
-
-
 
 
 def configure_routes(app):
@@ -71,9 +67,9 @@ def configure_routes(app):
             since Bitbucket is much less restrictive when it comes to
             unauthenticated api access.***
 
-            2. (OPTIONAL) sources: comma-seprated [str] - The sources we want to
-                    pull profile information from.
-                    VALID_VALUES = see (app/datasources/__init__.py : class_map)
+            2. (OPTIONAL) sources: comma-seprated [str] - The sources we want
+                    to pull profile information from.
+                    VALID_VALUES = see (app/datasources/__init__.py :class_map)
         """
         app.logger.info(f"Getting profile for: {org_name}")
 
@@ -89,12 +85,12 @@ def configure_routes(app):
             # By default we want to get info from all available sources
             datasources = d_sources.all_sources()
 
-        # Check that all desired datasources are valid. Since we want to give the
-        # client specific feedback on which source is invalid we'll do a
+        # Check that all desired datasources are valid. Since we want to give
+        # the client specific feedback on which source is invalid we'll do a
         # traditional FOR loop (vs in line check for inclusion)
         # TODO: Improvement - we COULD accept a partial number of datasources.
         #   i.e. if the client passes an invalid source we can just filter that
-        #   value out, process the request, and pass a message back to the client.
+        #   value out, process the request, and let the client know.
         for source_type in datasources:
             if source_type not in d_sources.class_map:
                 return Response('Datasource type: {} is NOT currently '
@@ -104,14 +100,14 @@ def configure_routes(app):
 
         # ***ENSURE WE HAVE ALL REQUIRED ACCESS TOKENS***
 
-        # If we want to get github info we will require an access token from the
-        # client.
-        # TODO: As more datasources are added we need to rethink this logic so it
-        #   does not become unmanagable. Maybe add a 'required_token_key' property
-        # to datasources? ¯\_(ツ)_/¯
+        # If we want to get github info we will require an access token from
+        # the client.
+        # TODO: As more datasources are added we need to rethink this logic so
+        #   it does not become unmanagable. Maybe add a 'required_token_key'
+        #   property to datasources? ¯\_(ツ)_/¯
         if 'github' in datasources and not request.args.get('access_token'):
-            return Response('Please provide a valid Github access token as query '
-                            'paramater ex."?access_token={TOKEN_VALUE}"',
+            return Response('Please provide a valid Github access token as '
+                            'query paramater ex."?access_token={TOKEN_VALUE}"',
                             400)
 
         access_token = request.args.get('access_token')
@@ -126,7 +122,7 @@ def configure_routes(app):
                 app.logger.info(f"Got profile for {source_type}!")
 
             unified_profile = merge_profiles(profiles, d_sources.profile_keys)
-
+            app.logger.info("Returning: {}".format(unified_profile))
             return Response(json.dumps(unified_profile),
                             status=200)
         except Exception as e:

@@ -13,6 +13,7 @@ services:
         environment:
             - PYTHONUNBUFFERED=0
             - PYTHONPATH=/usr/src
+            - FLASK_ADDRESS=0.0.0.0
             # About VCR modes:
             # https://vcrpy.readthedocs.io/en/latest/usage.html#record-modes
             - VCR_MODE=once
