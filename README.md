@@ -47,7 +47,7 @@ pytest --cov
 
 ### Using Docker Compose
 ```
-docker-compose -f docker-compose-tests.yml
+docker-compose -f docker-compose-tests.yml up
 ```
 
 ## Making Requests
@@ -57,8 +57,8 @@ curl -i "http://127.0.0.1:5000/health-check"
 ```
 
 ## Note Worthy Endpoints
-[GET] `/profile/<org_name>` : Get a unified code base stats summary for a given user/orgization/team. Currently supported data sources are Github and Bitbucket. Check out the docstring in `app/routes.py:get_profile_for` for details on query params (hint you're gonna need a Github access token).
+[GET] `/profile/<org_name>` : Get a unified code base stats summary for a given user/orgization/team. Currently supported data sources are Github and Bitbucket. Check out the docstring in `app/routes.py: get_profile_for` for details on query params (hint you're gonna need a Github access token).
 
 ## What'd I'd like to improve on...
 1. Hitting the `/profile/<org_name>` endpoint  with a user that does not exist at a datasource can cause the whole request to fail. This doesn't sound right.
-2. Upgrade to Python3.7+. This would enable AsyncIO to more easily play along with Flask. When using Python3.6, Flask views do not support being defined using `async` and thus can't use the `await` keywords. Using coroutines to run external call (especially to the Github API) would significantly improve the performance of `/profile/<org_name>`
+2. Upgrade to Python3.7+. This would enable AsyncIO to more easily play along with Flask. When using Python3.6, Flask views do not support being defined using `async` and thus can't use the `await` keywords. Using coroutines to run external calls (especially to the Github API) concurrently would significantly improve the performance of `/profile/<org_name>`.
